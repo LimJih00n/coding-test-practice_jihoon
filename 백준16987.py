@@ -34,25 +34,28 @@ def backtracking(eggs,idx,broken_num): #idx가 손에 든 계란
         backtracking(eggs,idx+1,broken_num)
         return
 
-    
+    vaild = False 
     for i in range(N): #든 계란으로 i번째 달걀을 침 
         
         if i == idx: # 자기 자신은 안침
             continue
         if eggs[i][0]<0:
             continue
+        vaild = True 
         now_broken_num = broken_num
         eggs[idx][0] -= eggs[i][1]
         eggs[i][0] -= eggs[idx][1]
-        if eggs[idx][0] < 0:
+        if eggs[idx][0] <= 0:
             now_broken_num += 1 
-        if eggs[i][0] < 0:
+        if eggs[i][0] <= 0:
             now_broken_num += 1 
         backtracking(eggs,idx+1,now_broken_num)
         eggs[idx][0] += eggs[i][1]
         eggs[i][0] += eggs[idx][1]
         
+    if not vaild:
         
+        backtracking(eggs,idx+1,broken_num)
             
 backtracking((g_eggs),0,0)
 print(max_)
